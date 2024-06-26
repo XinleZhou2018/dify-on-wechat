@@ -58,6 +58,30 @@ def deal_with_friend(msg):
     WechatChannel().handle_friend_request(cmsg)
     return None
 
+# 监听新的好友请求
+@itchat.msg_register(FRIENDS)
+def add_friend(msg):
+    # 自动同意添加好友请求
+    itchat.add_friend(**msg['Text'])
+    # 发送打招呼消息
+    itchat.send_msg('你好！欢迎来到考拉的编程树屋！', toUserName=msg['RecommendInfo']['UserName'])
+    # 邀请新好友加入指定的群聊
+    invite_to_group(msg['RecommendInfo']['UserName'])
+
+def invite_to_group(new_friend_username):
+    # 群聊名称
+    group_name = '考拉的编程树屋'
+    # 获取所有群聊列表
+    group_list = itchat.get_chatrooms()
+    # 找到指定的群聊
+    target_group = next((group for group in group_list if group['NickName'] == group_name), None)
+    if target_group:
+        # 邀请新好友加入群聊
+        itchat.add_member_into_chatroom(target_group['UserName'], [new_friend_username])
+        itchat.send_msg('你已被邀请加入群聊', toUserName=new_friend_username)
+    else:
+        itchat.send_msg('未找到指定的群聊', toUserName=new_friend_username)
+
 def _check(func):
     def wrapper(self, cmsg: ChatMessage):
         msgId = cmsg.msg_id
