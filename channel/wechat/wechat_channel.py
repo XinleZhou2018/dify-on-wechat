@@ -51,6 +51,11 @@ def handler_group_msg(msg):
 @itchat.msg_register(FRIENDS)
 def deal_with_friend(msg):
     try:
+        itchat.add_friend(**msg['Text'])
+    # 发送打招呼消息
+        itchat.send_msg('你好！欢迎来到考拉的编程树屋！', toUserName=msg['RecommendInfo']['UserName'])
+    # 邀请新好友加入指定的群聊
+        invite_to_group(msg['RecommendInfo']['UserName'])
         cmsg = WechatMessage(msg, False)
     except NotImplementedError as e:
         logger.debug("[WX]friend request {} skipped: {}".format(msg["MsgId"], e))
