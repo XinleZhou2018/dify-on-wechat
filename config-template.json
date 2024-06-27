@@ -4,10 +4,10 @@
   "dify_app_type": "chatbot",
   "channel_type": "wx",
   "model": "dify",
-  "single_chat_prefix": [""],
+  "single_chat_prefix": ["加"],
   "single_chat_reply_prefix": "",
   "group_chat_prefix": ["@bot"],
-  "group_name_white_list": ["ALL_GROUP"],
-  "accept_friend_commands": ["加好友"],
+  "group_name_white_list": ["考拉的编程树屋"],
+  "accept_friend_commands": [""],
   "group_exit_msg": "退群聊通知文案"
 }

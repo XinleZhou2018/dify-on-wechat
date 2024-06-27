@@ -311,8 +311,10 @@ class ChatChannel(Channel):
         if isinstance(context.content, dict) and "Content" in context.content:
             logger.info("friend request content: {}".format(context.content["Content"]))
             if context.content["Content"] in conf().get("accept_friend_commands", []):
+                logger.info("friend request content: True")
                 return Reply(type=ReplyType.ACCEPT_FRIEND, content=True)
             else:
+                logger.info("friend request content: False")
                 return Reply(type=ReplyType.ACCEPT_FRIEND, content=False)
         else:
             logger.error("Invalid context content: {}".format(context.content))
