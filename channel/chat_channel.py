@@ -310,7 +310,7 @@ class ChatChannel(Channel):
     def _build_friend_request_reply(self, context):
         if isinstance(context.content, dict) and "Content" in context.content:
             logger.info("friend request content: {}".format(context.content["Content"]))
-            if context.content["Content"] in conf().get("accept_friend_commands", []):
+            if True:#context.content["Content"] in conf().get("accept_friend_commands", []):
                 logger.info("friend request content: True")
                 return Reply(type=ReplyType.ACCEPT_FRIEND, content=True)
             else:
